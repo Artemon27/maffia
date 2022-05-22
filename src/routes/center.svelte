@@ -110,4 +110,9 @@
 		font-size: 13pt;
 		
 	}
+	@media (max-width:500px){
+		.center-chat{
+			margin:0px;
+		}
+	}
 </style>

@@ -127,6 +127,9 @@ section {
 
 .main-container{
 	display: flex;
+	scroll-snap-type: x mandatory;  
+	-webkit-overflow-scrolling: touch;
+	overflow-x: scroll;
 	width: 100%;
 	background-color: rgb(177, 67, 67);
 	color: white;
@@ -144,7 +147,23 @@ section {
 	width:350px;
 	min-width: 350px;
 }
-
+@media (max-width:1150px){
+	.main-slider-second{
+		min-width: calc(100vw - 350px);
+		margin: 0px;
+		padding: 0px;
+	}
+}
+@media (max-width:700px){
+	.main-slider-first, .main-slider-second, .main-slider-third{
+		min-width: 100vw;
+		margin: 0px;
+		padding: 0px;
+	}	
+	.main-container{
+		padding:0px;
+	}
+}
 @media (min-width: 720px) {
 	h1 {
 		font-size: 2.4rem;

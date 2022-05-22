@@ -15,13 +15,19 @@
 <Header />
 
 <div class="main-container">
-    <div class="main-slider-first">
+    <div class="main-slider-first child">
         <Left />
     </div>
-    <div class="main-slider-second">
+    <div class="main-slider-second child">
         <Center />
     </div>
-    <div class="main-slider-third">				
+    <div class="main-slider-third child">				
         <Right {rightFirst} />
     </div>	
 </div>	
+
+<style>
+    .child{
+        scroll-snap-align: start;
+    }	
+    </style>

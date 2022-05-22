@@ -4,10 +4,10 @@
 </script>
 
 <div class="header">
-    <a class='header-but' sveltekit:prefetch href="/gameset">Кнопка 1</a>
-    <a class='header-but' sveltekit:prefetch href="/gameplay/gameplay">Кнопка 2</a>
-    <span class='header-but'>Кнопка 3</span>
-    <span class='header-but'>Кнопка 4</span>
+    <a class='header-but' sveltekit:prefetch href="/gameset">Кнопка</a>
+    <a class='header-but' sveltekit:prefetch href="/gameplay/gameplay">Кнопка</a>
+    <span class='header-but'>Кнопка</span>
+    <span class='header-but'>Кнопка</span>
 </div>
 
 <style>

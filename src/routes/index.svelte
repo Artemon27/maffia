@@ -20,25 +20,27 @@
 
 <Header />
 	
-<section>
-	<div class="main-container">
-		<div class="main-slider-first">
-			<Left />
-		</div>
-		<div class="main-slider-second">
-			<Center />
-		</div>
-		<div class="main-slider-third">				
-			<Right {rightFirst} />
-		</div>	
-	</div>	
-</section>
 
+<div class="main-container">
+	<div class="main-slider-first child">
+		<Left />
+	</div>
+	<div class="main-slider-second child">
+		<Center />
+	</div>
+	<div class="main-slider-third child">				
+		<Right {rightFirst} />
+	</div>	
+</div>	
 <style>
+.main-container{
+	font-family: sans-serif;
+	
+	display: flex;
 	
 	
-	
-	
-	
-	
+}
+.child{
+	scroll-snap-align: start;
+}	
 </style>
