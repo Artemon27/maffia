@@ -5,8 +5,8 @@
   
 <script lang="ts">	
 	import Leftset from './leftset.svelte';
-	import Center from './Center.svelte';
-	import Right from './Right.svelte';
+	import Center from './center.svelte';
+	import Right from './right.svelte';
 	import Header from './header.svelte';
 
     var rightFirst:string = 'В наборе';
