@@ -6,11 +6,22 @@
 
 <script lang="ts">
 
-import {outClick} from './functions.svelte';
-export let idContext:number;
-export let id:number;
+import {outClick, setNoContext} from './functions.svelte';
+export let idContext:number;    //Триггер включения/выключения меню
+export let id:number;           //id пользователя
+export let idModule:number;     //id модуля, в котором отображается меню
+
+id = id * Math.pow(10, Math.floor(Math.log10(idModule)) + 1) + idModule;
+
+export function userRightClick(e:MouseEvent, id:number){
+    idContext = id;
+    setNoContext();
+}
+
 </script>
+<span on:contextmenu|preventDefault={(event)=>userRightClick(event,id)}>
 <slot name="item"></slot>
+</span>
 {#if idContext===id}
     <ul use:outClick={() => idContext = 0} class='context-menu'>
         <li>Посмотреть профиль</li>

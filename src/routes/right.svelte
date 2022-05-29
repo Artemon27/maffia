@@ -47,11 +47,6 @@
 		userinfo = 0;
 	}
 
-	export function userRightClick(e:MouseEvent, id:number){
-		idContext = id;
-		setNoContext();
-    }
-
 </script>
 
 <div class="right-coloumn">
@@ -79,9 +74,8 @@
 							</div>
 						</div>		
 					</div>
-					{idContext}
-					<Contextuser bind:idContext {id}>
-					<div slot="item" class='list-user' on:contextmenu|preventDefault={(event)=>userRightClick(event,id)}><img src={logo} width="20px" alt="">{name}</div>
+					<Contextuser bind:idContext {id} idModule={10000}>
+					<div slot="item" class='list-user'><img src={logo} width="20px" alt="">{name}</div>
 					</Contextuser>
 				</div>
 			{/each}
@@ -91,8 +85,10 @@
 			</div>
 		</div>
 		<div class="friends tab-pane fade" id="friends">
-			{#each users as {name}}				
-				<div class='list-user'><img src={logo} width="20px" alt="">{name}</div>
+			{#each users as {name,id}}			
+				<Contextuser bind:idContext {id} idModule={10001}>
+					<div slot="item" class='list-user'><img src={logo} width="20px" alt="">{name}</div>
+				</Contextuser>	
 			{/each}
 		</div>
 		<div class="settings tab-pane fade" id="settings">
