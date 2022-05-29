@@ -9,7 +9,8 @@
 	import About from './about.svelte';
 	import Center from './center.svelte';
 
-	import {setNoContext, outClick} from './functions.svelte';
+	import {setNoContext} from './functions.svelte';
+	import Contextuser from './contextuser.svelte';
 
 	
 	export let rightFirst:string;
@@ -25,7 +26,6 @@
 	let icon:string = logo;
 	let userinfo:number = 0;
     let idContext:number = 0;
-    let noContext:number = 0;
 
 	console.log(icon);
 	function addUser(){
@@ -79,16 +79,10 @@
 							</div>
 						</div>		
 					</div>
-					<div class='list-user' on:contextmenu|preventDefault={(event)=>userRightClick(event,id)}><img src={logo} width="20px" alt="">{name}</div>
 					{idContext}
-					{#if idContext===id}
-						<ul use:outClick={() => idContext = 0} class='context-menu'>
-							<li>Посмотреть профиль</li>
-							<li>Написать в приват</li>
-							<li>Добавить в друзья</li>
-							<li>Подарить подарок</li>
-						</ul>
-					{/if}
+					<Contextuser bind:idContext {id}>
+					<div slot="item" class='list-user' on:contextmenu|preventDefault={(event)=>userRightClick(event,id)}><img src={logo} width="20px" alt="">{name}</div>
+					</Contextuser>
 				</div>
 			{/each}
 			<div class="add-user">
@@ -175,24 +169,5 @@
 	.avka{
 		width:150px;
 		height: 180px;
-	}
-	.context-menu{
-		position: absolute;
-		background-color: black;
-		width:250px;
-		border:2px solid var(--main-red-color);
-		border-radius: 10px;
-		padding:10px;
-	}
-	.context-menu li{
-		list-style: none;
-		font-size: 12pt;
-		margin:5px;
-		padding:0px;
-	}
-	.context-menu li:hover{
-		color:var(--main-red-color);
-		cursor: pointer;
-		font-weight: 600;
 	}
 </style>
