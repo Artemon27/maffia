@@ -1,22 +1,35 @@
 <script context="module">
 	export const prerender = true;
+
 </script>
 
 <script lang="ts">
     import logo from './images/question.png';
+	import avka from './images/avka.jpg';
+	import About from './about.svelte';
+	import Center from './center.svelte';
 
+	import {setNoContext, outClick} from './functions.svelte';
+
+	
 	export let rightFirst:string;
 
     interface Person {
+		id:number,
 		name:string,
-		status:string
+		status:string,
+		image?:string
 	}
-	let users:Person[] = [{name:'Вася',status:'empty'}, {name:'Петя',status:'empty'}, {name:'Коля',status:'empty'}];
+	let users:Person[] = [{id:1, name:'Вася',status:'Здесь должен быть ваш статус',image:avka}, {id:2, name:'Петя',status:'empty'}, {id:3,name:'Коля',status:'empty'}];
 	let name:string = '';
 	let icon:string = logo;
+	let userinfo:number = 0;
+    let idContext:number = 0;
+    let noContext:number = 0;
+
 	console.log(icon);
 	function addUser(){
-		users.push({name:name,status:'empty'});
+		users.push({id:5,name:name,status:'empty'}); 
 		users = users;
 		name = '';
 	}
@@ -25,6 +38,20 @@
 			addUser();
 		}
 	}
+	function getuserinfo(id:number):any{
+		if (userinfo != id){
+			userinfo = id;
+		}
+	}
+	function nulluserinfo(){
+		userinfo = 0;
+	}
+
+	export function userRightClick(e:MouseEvent, id:number){
+		idContext = id;
+		setNoContext();
+    }
+
 </script>
 
 <div class="right-coloumn">
@@ -35,8 +62,34 @@
 	</div>
 	<div class ="right-content tab-content">
 		<div class="people tab-pane fade show active" id="people">
-			{#each users as {name}}				
-				<div class='list-user'><img src={logo} width="20px" alt="">{name}</div>
+			{#each users as {name,id,image,status}}
+				<div class="userfullinfo">
+					<div class="userinfo">
+						<div class="userinfo-in">
+							<div class="userinfo-name">
+								{name}														
+							</div>			
+							{#if image!=undefined}
+								<img class="avka" src={image} alt="">
+							{:else}
+								<div class="avka"></div>
+							{/if}	
+							<div class="userinfo-status">
+								{status}														
+							</div>
+						</div>		
+					</div>
+					<div class='list-user' on:contextmenu|preventDefault={(event)=>userRightClick(event,id)}><img src={logo} width="20px" alt="">{name}</div>
+					{idContext}
+					{#if idContext===id}
+						<ul use:outClick={() => idContext = 0} class='context-menu'>
+							<li>Посмотреть профиль</li>
+							<li>Написать в приват</li>
+							<li>Добавить в друзья</li>
+							<li>Подарить подарок</li>
+						</ul>
+					{/if}
+				</div>
 			{/each}
 			<div class="add-user">
 				<input type="text" bind:value={name} on:keydown={addUserKey}>
@@ -87,5 +140,59 @@
 		color: white;
 		cursor: pointer;
 		padding:5px;
+	}
+	.userinfo{
+		display: none;
+		position: absolute;
+		margin-left:-300px;
+		background-color: black;
+		width:300px;
+		height:400px;		
+		padding: 5px;
+		border: 2px solid gold;
+		border-radius: 20px;
+	}
+	.userinfo-in{
+		border: 2px solid gold;
+		border-radius: 20px;
+		height: 100%;
+		padding: 20px;
+		text-align: center;
+	}
+	.userinfo-name{
+		font-size: 16pt;
+		font-weight: 600;
+		margin-bottom: 10px;
+	}
+	.userinfo-status{
+		font-size: 12pt;
+		text-align: left;
+		margin-top: 10px;
+	}
+	.userfullinfo:hover .userinfo{
+		display: block;
+	}
+	.avka{
+		width:150px;
+		height: 180px;
+	}
+	.context-menu{
+		position: absolute;
+		background-color: black;
+		width:250px;
+		border:2px solid var(--main-red-color);
+		border-radius: 10px;
+		padding:10px;
+	}
+	.context-menu li{
+		list-style: none;
+		font-size: 12pt;
+		margin:5px;
+		padding:0px;
+	}
+	.context-menu li:hover{
+		color:var(--main-red-color);
+		cursor: pointer;
+		font-weight: 600;
 	}
 </style>

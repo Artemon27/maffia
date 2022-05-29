@@ -10,6 +10,9 @@
 	import Right from './right.svelte';
 	import Header from './header.svelte';	
 
+import { prevent_default } from 'svelte/internal';
+
+
 	var rightFirst:string = 'В зале';
 </script>
 
@@ -21,7 +24,7 @@
 <Header />
 	
 
-<div class="main-container">
+<div class="main-container" on:contextmenu|preventDefault>
 	<div class="main-slider-first child">
 		<Left />
 	</div>
