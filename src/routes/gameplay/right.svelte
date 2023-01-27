@@ -10,22 +10,25 @@
     import mask from '../images/mask.png';
     import cart from '../images/cart.png';
 
+    import Contextuser from '../contextuser.svelte';
 	export let rightFirst:string;
+    let idContext:number;
 
     interface Person {
+        id:number,
 		name:string,
 		status:string,
         role?:string
 	}
-	let users:Person[] = [{name:'Вася',status:'empty'}, {name:'Петя',status:'empty'}, {name:'Коля',status:'empty'},
-    {name:'Вася2',status:'empty'}, {name:'Петя2',status:'empty'}, {name:'Коля2',status:'empty'},
-    {name:'Вася3',status:'empty'}, {name:'Петя3',status:'empty'}, {name:'Коля3',status:'empty'},
-    {name:'Вероника',status:'empty',role:'Мафиози'}, {name:'Света',status:'empty'}, {name:'Оля',status:'empty'}];
+	let users:Person[] = [{id:1,name:'Вася',status:'empty'}, {id:2,name:'Петя',status:'empty'}, {id:3,name:'Коля',status:'empty'},
+    {id:4,name:'Вася2',status:'empty'}, {id:5,name:'Петя2',status:'empty'}, {id:6,name:'Коля2',status:'empty'},
+    {id:7,name:'Вася3',status:'empty'}, {id:8,name:'Петя3',status:'empty'}, {id:9,name:'Коля3',status:'empty'},
+    {id:10,name:'Вероника',status:'empty',role:'Мафиози'}, {id:11,name:'Света',status:'empty'}, {id:12,name:'Оля',status:'empty'}];
 	let name:string = '';
 	let icon:string = logo;
 	console.log(icon);
 	function addUser(){
-		users.push({name:name,status:'empty'});
+		users.push({id:500,name:name,status:'empty'});
 		users = users;
 		name = '';
 	}
@@ -45,12 +48,17 @@
         </div>
         <div class ="right-content tab-content">
             <div class="people tab-pane fade show active" id="people">
-                {#each users as {name, role}}				
-                    {#if role!=undefined}
-                        <div class='list-user you'><img src={logo} width="20px" alt="">{name} - {role}</div>
+                {#each users as {name, role,id}}
+                    {#if role!=undefined}	
+                        <Contextuser bind:idContext {id} idModule={10001}>		
+                            <div slot="item" class='list-user you'><img src={logo} width="20px" alt="">{name} - {role}</div>
+                        </Contextuser>
                     {:else}
-                        <div class='list-user'><img src={logo} width="20px" alt="">{name}</div>
+                        <Contextuser bind:idContext {id} idModule={10001}>	
+                            <div slot="item" class='list-user'><img src={logo} width="20px" alt="">{name}</div>
+                        </Contextuser>
                     {/if}
+                    	
                 {/each}
             </div>
             <div class="friends tab-pane fade" id="friends">

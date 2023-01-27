@@ -14,7 +14,7 @@
 
 <Header />
 
-<div class="main-container">
+<div class="main-container" on:contextmenu|preventDefault>
     <div class="main-slider-first child">
         <Left />
     </div>
